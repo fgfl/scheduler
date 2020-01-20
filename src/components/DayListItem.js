@@ -11,7 +11,15 @@ const formatSpots = (spots) => {
   return spotsString;
 };
 
-export default function DayListItem(props) {
+/**
+ * 
+ * @param {{
+ *  name: String,
+ *  spots: Number
+ *  selected: Boolean
+ *  setDay: Function}} props 
+ */
+const DayListItem = (props) => {
   let dayClass = classNames({
     'day-list__item': true,
     'day-list__item--selected': props.selected,
@@ -25,3 +33,5 @@ export default function DayListItem(props) {
     </li>
   );
 }
+
+export default DayListItem;
