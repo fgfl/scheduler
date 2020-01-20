@@ -1,14 +1,16 @@
-import React from "react";
+import React from 'react';
 
-import { storiesOf } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
+import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 
-import "index.scss";
+import 'index.scss';
 
-import Button from "../src/components/Button";
-import DayListItem from "../src/components/DayListItem";
-import DayList from "../src/components/DayList";
+import Button from '../src/components/Button';
+import DayListItem from '../src/components/DayListItem';
+import DayList from '../src/components/DayList';
+import InterviewerListItem from '../src/components/InterviewerListItem';
 
+// === Buttton === 
 storiesOf("Button", module)
   .addParameters({
     backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
@@ -25,6 +27,7 @@ storiesOf("Button", module)
     </Button>
   ));
 
+// === DayList ===
 storiesOf('DayListItem', module)
   .addParameters({
     backgrounds: [{name: 'dark', value: '#222f3e', default: true}]
@@ -36,6 +39,7 @@ storiesOf('DayListItem', module)
     <DayListItem name='Tuesday' setDay={action('SetDay')} spots={5} />
   ));
 
+// === DayList === 
 const days = [
   {
     id: 1,
@@ -63,4 +67,39 @@ storiesOf('DayList', module)
   ))
   .add('Tuesday', () => (
     <DayList days={days} day={'Tuesday'} setDay={action('setDay')} />
+  ));
+
+// === InterviewerListItem ===
+const interviewer = {
+  id: 1,
+  name: "Sylvia Palmer",
+  avatar: "https://i.imgur.com/LpaY82x.png"
+};
+
+storiesOf("InterviewerListItem", module)
+  .addParameters({
+    backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
+  })
+  .add("Unselected", () => (
+    <InterviewerListItem
+      id={interviewer.id}
+      name={interviewer.name}
+      avatar={interviewer.avatar}
+    />
+  ))
+  .add("Selected", () => (
+    <InterviewerListItem
+      id={interviewer.id}
+      name={interviewer.name}
+      avatar={interviewer.avatar}
+      selected
+    />
+  ))
+  .add("Clickable", () => (
+    <InterviewerListItem
+      id={interviewer.id}
+      name={interviewer.name}
+      avatar={interviewer.avatar}
+      setInterviewer={action("setInterviewer")}
+    />
   ));
