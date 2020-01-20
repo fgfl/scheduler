@@ -21,8 +21,8 @@ export default function Button(props) {
    return (
       <button
          className={`${buttonClass}`}
-         disabled = {props.disabled}
-         {...actionsData}
+         disabled={props.disabled}
+         onClick={props.onClick}
       >
          {props.children}
       </button>
