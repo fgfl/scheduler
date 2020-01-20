@@ -4,7 +4,7 @@ import {action } from "@storybook/addon-actions/dist/preview";
 import "components/Button.scss";
 
 export const actionsData = {
-   onClick:  action('onClick'),
+   onClick:  action('button-clicked'),
 };
 
 export default function Button(props) {
@@ -18,7 +18,15 @@ export default function Button(props) {
       buttonClass += ' button--danger';
    }
 
-   return <button className={`${buttonClass}`}>{props.children}</button>
+   return (
+      <button
+         className={`${buttonClass}`}
+         disabled = {props.disabled}
+         {...actionsData}
+      >
+         {props.children}
+      </button>
+   );
 }
 //    props:{
 //       danger,
