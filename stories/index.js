@@ -10,6 +10,8 @@ import DayListItem from '../src/components/DayListItem';
 import DayList from '../src/components/DayList';
 import InterviewerListItem from '../src/components/InterviewerListItem';
 import InterviewerList from '../src/components/InterviewerList';
+import Appointment from '../src/components/Appointment/index';
+
 
 // === Buttton === 
 storiesOf("Button", module)
@@ -83,14 +85,12 @@ storiesOf("InterviewerListItem", module)
   })
   .add("Unselected", () => (
     <InterviewerListItem
-      id={interviewer.id}
       name={interviewer.name}
       avatar={interviewer.avatar}
     />
   ))
   .add("Selected", () => (
     <InterviewerListItem
-      id={interviewer.id}
       name={interviewer.name}
       avatar={interviewer.avatar}
       selected
@@ -98,10 +98,9 @@ storiesOf("InterviewerListItem", module)
   ))
   .add("Clickable", () => (
     <InterviewerListItem
-      id={interviewer.id}
       name={interviewer.name}
       avatar={interviewer.avatar}
-      setInterviewer={action("setInterviewer")}
+      setInterviewer={(event) => action("setInterviewer")(interviewer.id)}
     />
   ));
 
@@ -131,3 +130,11 @@ storiesOf("InterviewerList", module)
       setInterviewer={action("setInterviewer")}
     />
   ));
+
+// === Appointment ===
+storiesOf("Appointment", module)
+  .addParameters({
+      backgrounds: [{ name: "white", value: "#fff", default: true }]
+  })
+  .add("Appointment", () => <Appointment />)
+  .add("Appointment With Time", () => <Appointment time="12PM" />)
