@@ -10,7 +10,11 @@ import DayListItem from '../src/components/DayListItem';
 import DayList from '../src/components/DayList';
 import InterviewerListItem from '../src/components/InterviewerListItem';
 import InterviewerList from '../src/components/InterviewerList';
-import Appointment from '../src/components/Appointment/index';
+import {
+  Appointment,
+  Header,
+  Empty,
+} from '../src/components/Appointment/index';
 
 
 // === Buttton === 
@@ -138,3 +142,5 @@ storiesOf("Appointment", module)
   })
   .add("Appointment", () => <Appointment />)
   .add("Appointment With Time", () => <Appointment time="12PM" />)
+  .add("Header", () => <Header time="12PM"/>)
+  .add("Empty", () => <Empty onAdd={action("onAdd")} />)
