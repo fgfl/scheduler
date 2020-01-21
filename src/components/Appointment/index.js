@@ -3,6 +3,7 @@ import React from 'react';
 import Header from './Header';
 import Empty from './Empty';
 import Show from './Show';
+import Confirm from './Confirm'
 
 import './styles.scss';
 
@@ -15,4 +16,5 @@ export {
   Header,
   Empty,
   Show,
+  Confirm,
 };

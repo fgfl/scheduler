@@ -9,7 +9,7 @@ import './InterviewerListItem.scss'
  *  name: String,
  *  avatar: URL,
  *  selected: Boolean,
- *  setInterviewer: Function}} props 
+ *  setInterviewer: ()}} props 
  */
 const InterviewerListItem = (props) => {
   const {name, avatar, selected, setInterviewer} = props;

@@ -17,7 +17,7 @@ const formatSpots = (spots) => {
  *  name: String,
  *  spots: Number
  *  selected: Boolean
- *  setDay: Function}} props 
+ *  setDay: ()}} props 
  */
 const DayListItem = (props) => {
   let dayClass = classNames({

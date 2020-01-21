@@ -15,6 +15,7 @@ import {
   Header,
   Empty,
   Show,
+  Confirm,
 } from '../src/components/Appointment/index';
 
 
@@ -151,4 +152,13 @@ storiesOf("Appointment", module)
       interviewer={interviewer}
       onEdit={action("onEdit")}
       onDelete={action("onDelete")}
-    />))
+    />
+  ))
+  .add("Confirm", () => (
+    <Confirm
+      message="Delete the appointment?"
+      onConfirm={action("onConfirm")}
+      onCancel={action("onCancel")}
+    />
+  ))
+  

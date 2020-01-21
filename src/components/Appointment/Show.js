@@ -5,8 +5,8 @@ import React from 'react';
  * @param {{
  *  student: String
  *  interviewer: {} 
- *  onEdit: Function
- *  onDelete: Function}} props 
+ *  onEdit: ()
+ *  onDelete: ()}} props 
  */
 const Show = (props) => {
   return (

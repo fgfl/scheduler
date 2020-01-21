@@ -9,7 +9,7 @@ import InterviewerListItem from './InterviewerListItem';
  * @param {{
  *  interviewers: [{id, name, avatar}]
  *  interviewer: Number
- *  setInterviewer: Function}} props 
+ *  setInterviewer: ()}} props 
  */
 const InterviewList = (props) => {
   const [values, onChange] = useState(props.interviewer);
