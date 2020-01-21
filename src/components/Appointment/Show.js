@@ -3,9 +3,9 @@ import React from 'react';
 /**
  * 
  * @param {{
- *  student: String
- *  interviewer: {} 
- *  onEdit: ()
+ *  student: String,
+ *  interviewer: {} ,
+ *  onEdit: (),
  *  onDelete: ()}} props 
  */
 const Show = (props) => {

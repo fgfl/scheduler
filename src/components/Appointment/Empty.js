@@ -1,5 +1,9 @@
 import React from 'react';
 
+/**
+ * 
+ * @param {{onAdd: ()}} props 
+ */
 const Empty = (props) => {
   return (
     <main className="appointment__add">
