@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 
 import Header from './Header';
 import Empty from './Empty';
@@ -11,7 +11,19 @@ import Form from './Form'
 import './styles.scss';
 
 const Appointment = (props) => {
-  return <article className="appointment">hi</article>
+  const {time, interview} = props;
+
+  return (
+    <article className="appointment">
+      <Header time={time} />
+      {interview ?
+        <Show
+          student={interview.student}
+          interviewer={interview.interviewer}
+        /> :
+        <Empty />}
+    </article>
+  );
 };
 
 export {
