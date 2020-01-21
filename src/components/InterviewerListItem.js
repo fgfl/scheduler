@@ -6,7 +6,6 @@ import './InterviewerListItem.scss'
 /**
  * 
  * @param {{
- *  id: Number,
  *  name: String,
  *  avatar: URL,
  *  selected: Boolean,
@@ -21,7 +20,7 @@ const InterviewerListItem = (props) => {
   });
 
   return (
-    <li className={interviewerClass} onClick={() => setInterviewer(name)}>
+    <li className={interviewerClass} onClick={setInterviewer}>
       <img
         className="interviewers__item-image"
         src={avatar}
