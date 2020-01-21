@@ -6,6 +6,7 @@ import Show from './Show';
 import Confirm from './Confirm'
 import Status from './Status'
 import Error from './Error'
+import Form from './Form'
 
 import './styles.scss';
 
@@ -21,4 +22,5 @@ export {
   Confirm,
   Status,
   Error,
+  Form,
 };

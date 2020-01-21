@@ -12,7 +12,6 @@ import InterviewerListItem from './InterviewerListItem';
  *  setInterviewer: ()}} props 
  */
 const InterviewList = (props) => {
-  const [values, onChange] = useState(props.interviewer);
   
   const interviewerItems =
     props.interviewers.map((interviewer) => (
@@ -20,8 +19,8 @@ const InterviewList = (props) => {
         key={interviewer.id}
         name={interviewer.name}
         avatar={interviewer.avatar}
-        selected={interviewer.id === values}
-        setInterviewer={(event) => onChange(interviewer.id)}
+        selected={interviewer.id === props.interviewer}
+        setInterviewer={(event) => props.setInterviewer(interviewer.id)}
       />
     ));
 
