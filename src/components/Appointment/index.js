@@ -4,6 +4,7 @@ import Header from './Header';
 import Empty from './Empty';
 import Show from './Show';
 import Confirm from './Confirm'
+import Status from './Status'
 
 import './styles.scss';
 
@@ -17,4 +18,5 @@ export {
   Empty,
   Show,
   Confirm,
+  Status,
 };

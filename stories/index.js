@@ -16,6 +16,7 @@ import {
   Empty,
   Show,
   Confirm,
+  Status,
 } from '../src/components/Appointment/index';
 
 
@@ -161,4 +162,5 @@ storiesOf("Appointment", module)
       onCancel={action("onCancel")}
     />
   ))
+  .add("Status", () => <Status message="Deleting" />)
   
