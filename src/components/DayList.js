@@ -5,9 +5,9 @@ import DayListItem from './DayListItem';
 /**
  * 
  * @param {{
- *  days: [{id, name, spots}],
- *  day: string,
- *  setDay: function
+ *  days: [{id: number, name: '', spots: number}],
+ *  day: '',
+ *  setDay: {}
  * }} props 
 */
 const DayList = (props) => {
