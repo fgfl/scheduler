@@ -11,7 +11,15 @@
  *      key: {
  *        id: number,
  *        time: '',
- *        interview: {student: '', interviewer: number, avatar: 'url'}}
+ *        interview: {student: '', interviewer: number}
+ *      }
+ *    },
+ *    interviewers: {
+ *      'id#': {
+ *        id: number,
+ *        name: 'interviewer name',
+ *        avatar: 'url'
+ *      }
  *    }
  * }} state 
  * @param {''} day 
@@ -31,4 +39,51 @@ const getAppointmentsForDay = (state, day) => {
   });
 };
 
-export {getAppointmentsForDay};
+/**
+ * 
+ * @param {{
+ *    day: 'selected day',
+ *    days: [{
+ *      id: number,
+ *      name: 'day name',
+ *      appointments: [number]
+ *    }],
+ *    appointments: {
+ *      key: {
+ *        id: number,
+ *        time: '',
+ *        interview: {student: '', interviewer: number}
+ *      }
+ *    },
+ *    interviewers: {
+ *      'id#': {
+ *        id: number,
+ *        name: 'interviewer name',
+ *        avatar: 'url'
+ *      }
+ *    }
+ * }} state 
+ * @param {{}} interview 
+ * @return {{}} 
+ */
+const getInterview = (state, interview) => {
+  if (
+    !state ||
+    !state.interviewers ||
+    !interview || 
+    !interview.interviewer
+  ) {
+    return null;
+  }
+
+  const parsedInterview = {
+    ...interview,
+    interviewer: state.interviewers[interview.interviewer],
+  };
+  return parsedInterview;
+};
+
+export {
+  getAppointmentsForDay,
+  getInterview,
+};

@@ -10,6 +10,13 @@ import Form from './Form'
 
 import './styles.scss';
 
+/**
+ * 
+ * @param {{
+ *  time: 'time string',
+ *  interview: {student: 'name', interviewer: number}
+ * }} props 
+ */
 const Appointment = (props) => {
   const {time, interview} = props;
 
