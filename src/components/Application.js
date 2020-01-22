@@ -8,54 +8,6 @@ import {Appointment} from 'components/Appointment/index'
 import { getAppointmentsForDay } from "helpers/selectors";
 
 
-const appointments = [
-  {
-    id: 1,
-    time: "12pm",
-  },
-  {
-    id: 2,
-    time: "1pm",
-    interview: {
-      student: "Lydia Miller-Jones",
-      interviewer: {
-        id: 1,
-        name: "Sylvia Palmer",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  },
-  {
-    id: 3,
-    time: '2pm',
-    interview: {
-      student: 'Joe',
-      interviewer: { id: 3, name: "Mildred Nazir", avatar: "https://i.imgur.com/T2WwVfS.png" },
-    }
-  },
-  {
-    id: 4,
-    time: '3pm',
-    interview: {
-      student: 'Swanson',
-      interviewer: { id: 4, name: "Cohana Roy", avatar: "https://i.imgur.com/FK8V841.jpg" },
-    }
-  },
-  {
-    id: 5,
-    time: '6pm',
-    interview: {
-      student: 'Peter Griffin',
-      interviewer: { id: 5, name: "Sven Jones", avatar: "https://i.imgur.com/twYrpay.jpg" }
-    }
-  },
-  {
-    id: 6,
-    time: 'last',
-  }
-];
-
-
 /**
  * @state {
  *  {
@@ -90,8 +42,6 @@ const Application = () => {
 
     Promise.all([getDaysPromise, getAppointmentPromise])
       .then(([days, appointments]) => {
-        console.log(days)
-        console.log( appointments)
         setState(prev => (
           {
             ...prev,
@@ -106,7 +56,7 @@ const Application = () => {
   }, []);
 
   const appointmentItems = 
-    appointments.map((appointment) => (
+    getAppointmentsForDay(state, state.day).map((appointment) => (
       <Appointment
         key={appointment.id}
         {...appointment}
