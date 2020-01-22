@@ -10,17 +10,14 @@ import DayListItem from '../src/components/DayListItem';
 import DayList from '../src/components/DayList';
 import InterviewerListItem from '../src/components/InterviewerListItem';
 import InterviewerList from '../src/components/InterviewerList';
-import {
-  Appointment,
-  Header,
-  Empty,
-  Show,
-  Confirm,
-  Status,
-  Error,
-  Form,
-} from '../src/components/Appointment/index';
-
+import Appointment from '../src/components/Appointment/index';
+import Header from '../src/components/Appointment/Header'
+import Empty from '../src/components/Appointment/Empty'
+import Show from '../src/components/Appointment/Show'
+import Confirm from '../src/components/Appointment/Confirm'
+import Status from '../src/components/Appointment/Status'
+import Error from '../src/components/Appointment/Error'
+import Form from '../src/components/Appointment/Form'
 
 // === Buttton === 
 storiesOf("Button", module)
