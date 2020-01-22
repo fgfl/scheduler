@@ -5,6 +5,7 @@ import "components/Application.scss";
 
 import DayList from 'components/DayList';
 import {Appointment} from 'components/Appointment/index'
+import { getAppointmentsForDay } from "helpers/selectors";
 
 
 const appointments = [
@@ -82,12 +83,22 @@ const Application = () => {
   });
   
   const setDay = (day) => setState(prev => ({...prev, day}));
-  const setDays = (days) => setState(prev => ({...prev, days}));
 
   useEffect(() => {
-    axios.get('/api/days')
-      .then((res) => {
-        setDays(res.data);
+    const getDaysPromise = axios.get('/api/days');
+    const getAppointmentPromise = axios.get('/api/appointments');
+
+    Promise.all([getDaysPromise, getAppointmentPromise])
+      .then(([days, appointments]) => {
+        console.log(days)
+        console.log( appointments)
+        setState(prev => (
+          {
+            ...prev,
+            days: days.data,
+            appointments: appointments.data
+          }
+        ));
       })
       .catch((err) => {
         console.error('Failed to get /api/days.', err.message);
