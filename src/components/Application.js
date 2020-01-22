@@ -55,6 +55,15 @@ const appointments = [
 ];
 
 
+/**
+ * @state {'day name'} day 
+ * @state {[{
+ *  id: number,
+ *  name: 'day name',
+ *  appointment: [number] apt id,
+ *  interviewers: [number] interviewer id,
+ *  sports: number}]} days
+ */
 const Application = () => {
   const [day, setDay] = useState('Monday');
   const [days, setDays] = useState([]);
