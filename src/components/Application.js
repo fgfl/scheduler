@@ -65,9 +65,26 @@ const appointments = [
  *  sports: number}]} days
  */
 const Application = () => {
-  const [day, setDay] = useState('Monday');
-  const [days, setDays] = useState([]);
+  const [state, setState] = useState({
+    day: 'Monday',
+    days: [],
+    appointments: {},
+  });
   
+  const setDay = (day) => setState(prev => ({...prev, day}));
+  const setDays = (days) => setState(prev => ({...prev, days}));
+
+  useEffect(() => {
+    axios.get('/api/days')
+      .then((res) => {
+        console.log(res.data)
+        setDays(res.data);
+      })
+      .catch((err) => {
+        console.error('Failed to get /api/days.', err.message);
+      })
+  }, []);
+
   const appointmentItems = 
     appointments.map((appointment) => (
       <Appointment
@@ -76,15 +93,6 @@ const Application = () => {
       />
     ));
 
-  useEffect(() => {
-    axios.get('/api/days')
-      .then((res) => {
-        setDays(res.data);
-      })
-      .catch((err) => {
-        console.error('Failed to get /api/days.', err.message);
-      })
-  }, [])
 
   return (
     <main className="layout">
@@ -99,8 +107,8 @@ const Application = () => {
             <hr className="sidebar__separator sidebar--centered" />
             <nav className="sidebar__menu">
               <DayList
-                days={days}
-                day={day}
+                days={state.days}
+                day={state.day}
                 setDay={setDay}
               />
             </nav>

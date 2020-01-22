@@ -1,11 +1,21 @@
 /**
  * 
- * @param {[{
- *  id: number,
- *  name: 'day name',
- *  appointments: [number],
- *  interviewers: [number],
- *  sports: number}]} state 
+ * @param {
+ *  {
+ *    day: 'selected day',
+ *    days: [{
+ *      id: number,
+ *      name: 'day name',
+ *      appointments: [number]
+ *    }],
+ *    appointments: {
+ *      key: {
+ *        id: number,
+ *        time: '',
+ *        interview: {student: '', interviewer: number}}
+ *    }
+ *  }
+ * } state 
  * @param {''} day 
  * @return {[]} appointment id array
  */
