@@ -1,7 +1,6 @@
 /**
  * 
- * @param {
- *  {
+ * @param {{
  *    day: 'selected day',
  *    days: [{
  *      id: number,
@@ -12,10 +11,9 @@
  *      key: {
  *        id: number,
  *        time: '',
- *        interview: {student: '', interviewer: number}}
+ *        interview: {student: '', interviewer: number, avatar: 'url'}}
  *    }
- *  }
- * } state 
+ * }} state 
  * @param {''} day 
  * @return {[]} appointment id array
  */

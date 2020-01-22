@@ -56,13 +56,23 @@ const appointments = [
 
 
 /**
- * @state {'day name'} day 
- * @state {[{
- *  id: number,
- *  name: 'day name',
- *  appointment: [number] apt id,
- *  interviewers: [number] interviewer id,
- *  sports: number}]} days
+ * @state {
+ *  {
+ *    day: 'selected day',
+ *    days: [{
+ *      id: number,
+ *      name: 'day name',
+ *      appointments: [number]
+ *    }],
+ *    appointments: {
+ *      key: {
+ *        id: number,
+ *        time: '',
+ *        interview: {student: '', interviewer: number, avatar: 'url'}}
+ *      }
+ *    }
+ *  }
+ * }
  */
 const Application = () => {
   const [state, setState] = useState({
@@ -77,7 +87,6 @@ const Application = () => {
   useEffect(() => {
     axios.get('/api/days')
       .then((res) => {
-        console.log(res.data)
         setDays(res.data);
       })
       .catch((err) => {
