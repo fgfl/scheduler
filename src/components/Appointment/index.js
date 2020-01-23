@@ -19,6 +19,7 @@ const SHOW = 'SHOW';
 const SAVING = 'SAVING';
 const DELETING = 'DELETING';
 const CONFIRM = 'CONFIRM';
+const EDIT = 'EDIT';
 
 const ERROR = 'ERROR';
 
@@ -96,11 +97,20 @@ const Appointment = (props) => {
           onCancel={(event) => back()}
         />
       )}
+      {mode === EDIT && (
+        <Form
+          name={interview.student}
+          interviewer={interview.interviewer.id}
+          interviewers={interviewers}
+          onSave={save}
+          onCancel={(event) => back()}
+        />
+      )}
       {mode === SHOW && (
         <Show
           student={interview.student}
           interviewer={interview.interviewer}
-          // onEdit=
+          onEdit={(event) => transition(EDIT)}
           onDelete={(event) => transition(CONFIRM)}
         />
       )}
