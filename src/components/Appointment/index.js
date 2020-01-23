@@ -14,11 +14,12 @@ import useVisualMode from 'hooks/useVisualMode';
 import './styles.scss';
 
 const EMPTY = 'EMPTY';
-const SHOW = 'SHOW';
-const CONFIRM = 'CONFIRM';
-const STATUS = 'STATUS';
-const ERROR = 'ERROR';
 const CREATE = 'CREATE';
+const SHOW = 'SHOW';
+const SAVING = 'SAVING';
+
+const CONFIRM = 'CONFIRM';
+const ERROR = 'ERROR';
 
 /**
  * 
@@ -57,13 +58,16 @@ const Appointment = (props) => {
       student: name,
       interviewer
     };
+
+    transition(SAVING);
+
     bookInterview(id, interview)
       .then((res) => {
         transition(SHOW);
       })
       .catch((err) => {
         console.error('Failed to book interview', err.message);
-      })
+      });
   };
 
 
@@ -84,15 +88,16 @@ const Appointment = (props) => {
           interviewer={interview.interviewer}
         />
       )}
+      {mode === SAVING && (
+        <Status message="Saving" />
+      )}
+
       {mode === CONFIRM && (
         <Confirm
           message="Delete the appointment?"
           onConfirm={() => {}}
           onCancel={() => {}}
         />
-      )}
-      {mode === STATUS && (
-        <Status message="Saving" />
       )}
       {mode === ERROR && (
         <Error
