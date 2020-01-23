@@ -71,6 +71,10 @@ const Application = () => {
       })
   }, []);
 
+  const bookInterview = (id, interview) => {
+    console.log(id, interview);
+  };
+
   const appointmentItems = 
     getAppointmentsForDay(state, state.day).map((appointment) => {
       const interview = getInterview(state, appointment.interview);
@@ -83,6 +87,7 @@ const Application = () => {
           time={appointment.time}
           interview={interview}
           interviewers={interviewers}
+          bookInterview={bookInterview}
         />
       );
     });

@@ -23,6 +23,7 @@ const CREATE = 'CREATE';
 /**
  * 
  * @param {{
+ *  id: number,
  *  time: 'time string',
  *  interview: {
  *    student: 'name',
@@ -32,29 +33,32 @@ const CREATE = 'CREATE';
  *      avatar: 'url'umber
  *    }
  *  },
- *  interviewers: [{}]
+ *  interviewers: [{}],
+ *  bookInterview: Function
  * }} props 
  */
 const Appointment = (props) => {
   const {
+    id,
     time,
     interview,
-    interviewers} = props;
+    interviewers,
+    bookInterview,
+  } = props;
+
   const {
     mode,
     transition,
     back,
   } = useVisualMode(interview ? SHOW : EMPTY);
 
-
-  // useEffect(() => {
-  //   if (interview) {
-  //     transition(SHOW);
-  //   } else {
-  //     transition(EMPTY);
-  //   }
-
-  // }, []);
+  const save = (name, interviewer) => {
+    const interview = {
+      student: name,
+      interviewer
+    };
+    bookInterview(id, interview);
+  }
 
 
   return (
@@ -64,8 +68,7 @@ const Appointment = (props) => {
       {mode === CREATE && (
         <Form
           interviewers={interviewers}
-          interviewer={3}
-          onSave={() => {}}
+          onSave={save}
           onCancel={() => back()}
         />
       )}
