@@ -20,8 +20,8 @@ const SAVING = 'SAVING';
 const DELETING = 'DELETING';
 const CONFIRM = 'CONFIRM';
 const EDIT = 'EDIT';
-
-const ERROR = 'ERROR';
+const ERROR_SAVE = 'ERROR_SAVE';
+const ERROR_DELETE = 'ERROR_DELETE';
 
 /**
  * 
@@ -71,6 +71,7 @@ const Appointment = (props) => {
       })
       .catch((err) => {
         console.error('Failed to book interview', err);
+        transition(ERROR_SAVE);
       });
   };
 
@@ -83,6 +84,7 @@ const Appointment = (props) => {
       })
       .catch((err) => {
         console.error('Failed to cancel interview', err);
+        transition(ERROR_DELETE);
       });
   };
 
@@ -128,10 +130,16 @@ const Appointment = (props) => {
         <Status message="Deleting" />
       )}
 
-      {mode === ERROR && (
+      {mode === ERROR_SAVE && (
         <Error
           message="Could not save appointment"
-          onClose={() => {}}
+          onClose={() => back()}
+        />
+      )} 
+      {mode === ERROR_DELETE && (
+        <Error
+          message="Could not delete appointment"
+          onClose={() => back()}
         />
       )} 
     </article>
