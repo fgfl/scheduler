@@ -71,12 +71,12 @@ const Appointment = (props) => {
       })
       .catch((err) => {
         console.error('Failed to book interview', err);
-        transition(ERROR_SAVE);
+        transition(ERROR_SAVE, true);
       });
   };
 
   const cancel = (id) => {
-    transition(DELETING);
+    transition(DELETING, true);
 
     cancelInterview(id)
       .then((res) => {
@@ -84,7 +84,7 @@ const Appointment = (props) => {
       })
       .catch((err) => {
         console.error('Failed to cancel interview', err);
-        transition(ERROR_DELETE);
+        transition(ERROR_DELETE, true);
       });
   };
 
