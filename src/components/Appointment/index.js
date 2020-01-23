@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 
 import Header from './Header';
 import Empty from './Empty';
@@ -70,7 +70,6 @@ const Appointment = (props) => {
         transition(SHOW);
       })
       .catch((err) => {
-        console.error('Failed to book interview', err);
         transition(ERROR_SAVE, true);
       });
   };
@@ -83,7 +82,6 @@ const Appointment = (props) => {
         transition(EMPTY);
       })
       .catch((err) => {
-        console.error('Failed to cancel interview', err);
         transition(ERROR_DELETE, true);
       });
   };
