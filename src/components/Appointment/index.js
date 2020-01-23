@@ -18,8 +18,8 @@ const CREATE = 'CREATE';
 const SHOW = 'SHOW';
 const SAVING = 'SAVING';
 const DELETING = 'DELETING';
-
 const CONFIRM = 'CONFIRM';
+
 const ERROR = 'ERROR';
 
 /**
@@ -93,7 +93,7 @@ const Appointment = (props) => {
         <Form
           interviewers={interviewers}
           onSave={save}
-          onCancel={() => back()}
+          onCancel={(event) => back()}
         />
       )}
       {mode === SHOW && (
@@ -101,29 +101,29 @@ const Appointment = (props) => {
           student={interview.student}
           interviewer={interview.interviewer}
           // onEdit=
-          onDelete={event => cancel(id)}
+          onDelete={(event) => transition(CONFIRM)}
         />
       )}
       {mode === SAVING && (
         <Status message="Saving" />
       )}
+      {mode === CONFIRM && (
+        <Confirm
+          message="Delete the appointment?"
+          onConfirm={(event) => cancel(id)}
+          onCancel={(event) => back()}
+        />
+      )}
       {mode === DELETING && (
         <Status message="Deleting" />
       )}
 
-      {/* {mode === CONFIRM && (
-        <Confirm
-          message="Delete the appointment?"
-          onConfirm={() => {}}
-          onCancel={() => {}}
-        />
-      )}
       {mode === ERROR && (
         <Error
           message="Could not save appointment"
           onClose={() => {}}
         />
-      )} */}
+      )} 
     </article>
   );
 };
