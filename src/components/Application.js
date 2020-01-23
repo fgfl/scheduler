@@ -7,6 +7,7 @@ import DayList from 'components/DayList';
 import Appointment from 'components/Appointment/index'
 import {
   getAppointmentsForDay,
+  getInterviewersForDay,
   getInterview,
 } from "helpers/selectors";
 
@@ -19,6 +20,8 @@ import {
  *      id: number,
  *      name: 'day name',
  *      appointments: [number]
+ *      interviewers: [number]
+ *      spots: number
  *    }],
  *    appointments: {
  *      'id#': {
@@ -64,13 +67,14 @@ const Application = () => {
         ));
       })
       .catch((err) => {
-        console.error('Failed to get /api/days.', err.message);
+        console.error('Failed to GET request.', err.message);
       })
   }, []);
 
   const appointmentItems = 
     getAppointmentsForDay(state, state.day).map((appointment) => {
       const interview = getInterview(state, appointment.interview);
+      const interviewers = getInterviewersForDay(state, state.day);
 
       return (
         <Appointment
@@ -78,6 +82,7 @@ const Application = () => {
           id={appointment.id}
           time={appointment.time}
           interview={interview}
+          interviewers={interviewers}
         />
       );
     });

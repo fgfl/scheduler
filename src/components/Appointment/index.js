@@ -7,6 +7,7 @@ import Confirm from './Confirm'
 import Status from './Status'
 import Error from './Error'
 import Form from './Form'
+
 import useVisualMode from 'hooks/useVisualMode';
 
 
@@ -30,11 +31,15 @@ const CREATE = 'CREATE';
  *      name: 'interviewer name',
  *      avatar: 'url'umber
  *    }
- *  }
+ *  },
+ *  interviewers: [{}]
  * }} props 
  */
 const Appointment = (props) => {
-  const {time, interview} = props;
+  const {
+    time,
+    interview,
+    interviewers} = props;
   const {
     mode,
     transition,
@@ -58,7 +63,7 @@ const Appointment = (props) => {
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)}/>}
       {mode === CREATE && (
         <Form
-          interviewers={[]}
+          interviewers={interviewers}
           interviewer={3}
           onSave={() => {}}
           onCancel={() => back()}

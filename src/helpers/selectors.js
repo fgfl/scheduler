@@ -7,6 +7,7 @@
  *      name: 'day name',
  *      appointments: [number]
  *      interviewers: [number]
+ *      spots: number
  *    }],
  *    appointments: {
  *      key: {
@@ -49,6 +50,7 @@ const getAppointmentsForDay = (state, day) => {
  *      name: 'day name',
  *      appointments: [number]
  *      interviewers: [number]
+ *      spots: number
  *    }],
  *    appointments: {
  *      key: {
@@ -91,6 +93,8 @@ const getInterviewersForDay = (state, day) => {
  *      id: number,
  *      name: 'day name',
  *      appointments: [number]
+ *      interviewers: [number]
+ *      spots: number
  *    }],
  *    appointments: {
  *      key: {
