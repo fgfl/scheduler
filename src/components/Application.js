@@ -80,10 +80,19 @@ const Application = () => {
       ...state.appointments,
       [id]: appointment
     };
-    setState({
-      ...state,
-      appointments
-    });
+
+    return axios.put(
+      `/api/appointments/${id}`,
+      {
+        interview: appointment.interview
+      })
+      .then((res) => {
+        setState({
+          ...state,
+          appointments
+        });
+        return res;
+      });
   };
 
   const appointmentItems = 

@@ -57,8 +57,13 @@ const Appointment = (props) => {
       student: name,
       interviewer
     };
-    bookInterview(id, interview);
-    transition(SHOW);
+    bookInterview(id, interview)
+      .then((res) => {
+        transition(SHOW);
+      })
+      .catch((err) => {
+        console.error('Failed to book interview', err.message);
+      })
   };
 
 
