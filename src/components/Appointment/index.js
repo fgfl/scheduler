@@ -17,13 +17,20 @@ const SHOW = 'SHOW';
 const CONFIRM = 'CONFIRM';
 const STATUS = 'STATUS';
 const ERROR = 'ERROR';
-const FORM = 'FORM';
+const CREATE = 'CREATE';
 
 /**
  * 
  * @param {{
  *  time: 'time string',
- *  interview: {student: 'name', interviewer: number}
+ *  interview: {
+ *    student: 'name',
+ *    interviewer: {
+ *      id: number,
+ *      name: 'interviewer name',
+ *      avatar: 'url'umber
+ *    }
+ *  }
  * }} props 
  */
 const Appointment = (props) => {
@@ -35,20 +42,28 @@ const Appointment = (props) => {
   } = useVisualMode(interview ? SHOW : EMPTY);
 
 
-  useEffect(() => {
-    if (interview) {
-      transition(SHOW);
-    } else {
-      transition(EMPTY);
-    }
+  // useEffect(() => {
+  //   if (interview) {
+  //     transition(SHOW);
+  //   } else {
+  //     transition(EMPTY);
+  //   }
 
-  }, []);
+  // }, []);
 
 
   return (
     <article className="appointment">
       <Header time={time} />
-      {mode === EMPTY && <Empty />}
+      {mode === EMPTY && <Empty onAdd={() => transition(CREATE)}/>}
+      {mode === CREATE && (
+        <Form
+          interviewers={[]}
+          interviewer={3}
+          onSave={() => {}}
+          onCancel={() => back()}
+        />
+      )}
       {mode === SHOW && (
         <Show
           student={interview.student}
@@ -58,8 +73,8 @@ const Appointment = (props) => {
       {mode === CONFIRM && (
         <Confirm
           message="Delete the appointment?"
-          onConfirm={action("onConfirm")}
-          onCancel={action("onCancel")}
+          onConfirm={() => {}}
+          onCancel={() => {}}
         />
       )}
       {mode === STATUS && (
@@ -68,16 +83,7 @@ const Appointment = (props) => {
       {mode === ERROR && (
         <Error
           message="Could not save appointment"
-          onClose={action("onClose")}
-        />
-      )}
-      {mode === FORM && (
-        <Form
-          name="Frederick"
-          interviewers={interviewers}
-          interviewer={3}
-          onSave={action("onSave")}
-          onCancel={action("onCancel")}
+          onClose={() => {}}
         />
       )}
     </article>
