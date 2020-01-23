@@ -1,6 +1,8 @@
 import {useReducer, useEffect} from 'react';
 import axios from 'axios';
 
+const MAX_INTERVIEWS_PER_DAY = 5;
+
 const SET_DAY = 'SET_DAY';
 const SET_APPLICATION_DATA = 'SET_APPLICATION_DATA';
 const SET_INTERVIEW = 'SET_INTERVIEW';
@@ -15,8 +17,40 @@ const initialState = {
 const reducerLookup = {
   [SET_DAY]: (state, action) => ({...state, day: action.value}),
   [SET_APPLICATION_DATA]: (state, action) => ({...state, ...action.value}),
-  [SET_INTERVIEW]: (state, action) => ({...state, appointments: action.value}),
-  default: (state, action) => {
+  [SET_INTERVIEW]: (state, action) => {
+    const appointment = {
+      ...state.appointments[action.id],
+      interview: action.interview,
+    };
+    const appointments = {
+      ...state.appointments,
+      [action.id]: appointment
+    };
+
+    const newState = {...state, appointments};
+
+    const selectedDayData =
+      newState.days
+        .filter((day) => day.name === newState.day)[0];
+
+    const newSpots =
+      selectedDayData.appointments
+        .reduce((spots, appointmentId) => {
+          spots -= newState.appointments[appointmentId].interview ? 1 : 0;
+          return spots; 
+        }, MAX_INTERVIEWS_PER_DAY);
+
+    const days = [...state.days].map((day) => {
+      if (selectedDayData.id === day.id) {
+        return {...selectedDayData, spots: newSpots};
+      } else {
+        return day;
+      }
+    });
+
+    return {...newState, days};
+  },
+  default: (action) => {
     throw new Error(
       `Tried to reduce with unsupported action type: ${action.type}`
     );
@@ -67,25 +101,17 @@ const useApplication = () => {
    * @param {{student: '' , interviewer: number}} interview - student name, interviewer id
    */
   const bookInterview = (id, interview) => {
-    const appointment = {
-      ...state.appointments[id],
-      interview: {...interview},
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
-
     return axios.put(
       `/api/appointments/${id}`,
       {
-        interview: appointment.interview
+        interview: interview
       })
       .then((res) => {
         dispatchState({
           type: SET_INTERVIEW,
-          value: appointments}
-        );
+          id,
+          interview
+        });
         return res;
       });
   };
@@ -95,24 +121,14 @@ const useApplication = () => {
    * @param {Number} id - appointment id
    */
   const cancelInterview = (id) => {
-    console.log(id)
-    console.log(state);
-    const appointment = {
-      ...state.appointments[id],
-      interview: null,
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment,
-    };
-
     return (
       axios.delete(`/api/appointments/${id}`)
         .then((res) => {
           dispatchState({
             type: SET_INTERVIEW,
-            value: appointments}
-          );
+            id,
+            interview: null
+          });
           return res;
         })
     );
