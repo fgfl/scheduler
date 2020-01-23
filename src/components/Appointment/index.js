@@ -17,6 +17,7 @@ const EMPTY = 'EMPTY';
 const CREATE = 'CREATE';
 const SHOW = 'SHOW';
 const SAVING = 'SAVING';
+const DELETING = 'DELETING';
 
 const CONFIRM = 'CONFIRM';
 const ERROR = 'ERROR';
@@ -36,6 +37,7 @@ const ERROR = 'ERROR';
  *  },
  *  interviewers: [{}],
  *  bookInterview: Function
+ *  cancelInterview: Function
  * }} props 
  */
 const Appointment = (props) => {
@@ -45,6 +47,7 @@ const Appointment = (props) => {
     interview,
     interviewers,
     bookInterview,
+    cancelInterview,
   } = props;
 
   const {
@@ -66,10 +69,21 @@ const Appointment = (props) => {
         transition(SHOW);
       })
       .catch((err) => {
-        console.error('Failed to book interview', err.message);
+        console.error('Failed to book interview', err);
       });
   };
 
+  const cancel = (id) => {
+    transition(DELETING);
+
+    cancelInterview(id)
+      .then((res) => {
+        transition(EMPTY);
+      })
+      .catch((err) => {
+        console.error('Failed to cancel interview', err);
+      });
+  };
 
   return (
     <article className="appointment">
@@ -86,13 +100,18 @@ const Appointment = (props) => {
         <Show
           student={interview.student}
           interviewer={interview.interviewer}
+          // onEdit=
+          onDelete={event => cancel(id)}
         />
       )}
       {mode === SAVING && (
         <Status message="Saving" />
       )}
+      {mode === DELETING && (
+        <Status message="Deleting" />
+      )}
 
-      {mode === CONFIRM && (
+      {/* {mode === CONFIRM && (
         <Confirm
           message="Delete the appointment?"
           onConfirm={() => {}}
@@ -104,7 +123,7 @@ const Appointment = (props) => {
           message="Could not save appointment"
           onClose={() => {}}
         />
-      )}
+      )} */}
     </article>
   );
 };

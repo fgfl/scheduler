@@ -71,6 +71,11 @@ const Application = () => {
       })
   }, []);
 
+  /**
+   * 
+   * @param {Number} id - appointment id
+   * @param {{student: '' , interviewer: number}} interview - student name, interviewer id
+   */
   const bookInterview = (id, interview) => {
     const appointment = {
       ...state.appointments[id],
@@ -95,6 +100,34 @@ const Application = () => {
       });
   };
 
+  /**
+   * 
+   * @param {Number} id - appointment id
+   */
+  const cancelInterview = (id) => {
+    console.log(id)
+    console.log(state);
+    const appointment = {
+      ...state.appointments[id],
+      interview: null,
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+
+    return (
+      axios.delete(`/api/appointments/${id}`)
+        .then((res) => {
+          setState({
+            ...state,
+            appointments
+          });
+          return res;
+        })
+    );
+  };
+
   const appointmentItems = 
     getAppointmentsForDay(state, state.day).map((appointment) => {
       const interview = getInterview(state, appointment.interview);
@@ -108,6 +141,7 @@ const Application = () => {
           interview={interview}
           interviewers={interviewers}
           bookInterview={bookInterview}
+          cancelInterview={cancelInterview}
         />
       );
     });
