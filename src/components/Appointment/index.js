@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Header from './Header';
 import Empty from './Empty';
@@ -33,7 +33,7 @@ const ERROR_DELETE = 'ERROR_DELETE';
  *    interviewer: {
  *      id: number,
  *      name: 'interviewer name',
- *      avatar: 'url'umber
+ *      avatar: 'url'
  *    }
  *  },
  *  interviewers: [{}],
@@ -56,6 +56,16 @@ const Appointment = (props) => {
     transition,
     back,
   } = useVisualMode(interview ? SHOW : EMPTY);
+
+  // Update the mode when Appointment is updated by the database sending updates
+  useEffect(() => {
+    if (interview && mode === EMPTY) {
+      transition(SHOW);
+    }
+    if (interview === null && mode === SHOW) {
+      transition(EMPTY);
+    }
+  }, [interview, transition, mode]);
 
   const save = (name, interviewer) => {
     const interview = {
@@ -106,7 +116,7 @@ const Appointment = (props) => {
           onCancel={(event) => back()}
         />
       )}
-      {mode === SHOW && (
+      {mode === SHOW && interview && (
         <Show
           student={interview.student}
           interviewer={interview.interviewer}

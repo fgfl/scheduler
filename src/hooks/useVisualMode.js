@@ -6,7 +6,7 @@ const useVisualMode = (initialMode) => {
 
   /**
    * 
-   * @param {*} newMode 
+   * @param {''} newMode
    * @param {Boolean} replace=false - replace the last element in history?
    */
   const transition = (newMode, replace = false) => {

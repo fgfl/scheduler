@@ -68,7 +68,17 @@ const useApplication = () => {
   
   const [state, dispatchState] = useReducer(reducer, initialState);
 
+  // Initial set up. Get data from database and open websocket
   useEffect(() => {
+    const webSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL );
+
+    webSocket.onopen = (event) => {
+      // console.log('websocket open')
+    };
+    webSocket.onmessage = (e) => {
+      dispatchState({...JSON.parse(e.data)});
+    };
+
     const getDaysPromise = axios.get('/api/days');
     const getAppointmentsPromise = axios.get('/api/appointments');
     const getInterviewersPromise = axios.get('/api/interviewers');
@@ -86,7 +96,12 @@ const useApplication = () => {
       })
       .catch((err) => {
         console.error('Failed to GET request.', err.message);
-      })
+      });
+
+    return (() => {
+      console.log('cleaning up useEffect for Application')
+      webSocket.close()
+    });
   }, []);
 
   /**
