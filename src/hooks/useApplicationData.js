@@ -29,20 +29,20 @@ const reducerLookup = {
 
     const newState = {...state, appointments};
 
-    const selectedDayData =
-      newState.days
-        .filter((day) => day.name === newState.day)[0];
+    const [interviewDayData] =
+      [...newState.days]
+        .filter((day) => day.appointments.includes(action.id));
 
     const newSpots =
-      selectedDayData.appointments
+      interviewDayData.appointments
         .reduce((spots, appointmentId) => {
           spots -= newState.appointments[appointmentId].interview ? 1 : 0;
           return spots; 
         }, MAX_INTERVIEWS_PER_DAY);
 
     const days = [...state.days].map((day) => {
-      if (selectedDayData.id === day.id) {
-        return {...selectedDayData, spots: newSpots};
+      if (interviewDayData.id === day.id) {
+        return {...interviewDayData, spots: newSpots};
       } else {
         return day;
       }
@@ -70,7 +70,7 @@ const useApplication = () => {
 
   // Initial set up. Get data from database and open websocket
   useEffect(() => {
-    const webSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL );
+    const webSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
 
     webSocket.onopen = (event) => {
       // console.log('websocket open')
