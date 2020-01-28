@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import InterviewerList from "../InterviewerList";
-import Button from "../Button";
+import InterviewerList from '../InterviewerList';
+import Button from '../Button';
 
 /**
  *
@@ -14,17 +14,27 @@ import Button from "../Button";
  * }} props
  */
 const Form = props => {
-  const [name, setName] = useState(props.name || "");
+  const [name, setName] = useState(props.name || '');
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  const [error, setError] = useState('');
 
   const reset = () => {
-    setName("");
+    setName('');
     setInterviewer(null);
   };
 
   const cancel = onCancel => {
     reset();
     onCancel();
+  };
+
+  const validate = () => {
+    if (name === '') {
+      setError('Student name cannot be blank');
+      return;
+    }
+
+    props.onSave(name, interviewer);
   };
 
   return (
@@ -41,6 +51,7 @@ const Form = props => {
             data-testid="student-name-input"
           />
         </form>
+        <section className="appointment__validation">{error}</section>
         <InterviewerList
           interviewers={props.interviewers}
           interviewer={interviewer}
@@ -52,7 +63,8 @@ const Form = props => {
           <Button danger onClick={event => cancel(props.onCancel)}>
             Cancel
           </Button>
-          <Button confirm onClick={event => props.onSave(name, interviewer)}>
+          {/* <Button confirm onClick={event => validate(event)}> */}
+          <Button confirm onClick={validate}>
             Save
           </Button>
         </section>
