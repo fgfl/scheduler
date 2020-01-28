@@ -12,6 +12,7 @@ import {
   getByPlaceholderText,
   queryByText,
   waitForDomChange,
+  getByTestId,
 } from '@testing-library/react';
 
 import Application from 'components/Application';
@@ -75,18 +76,65 @@ describe('Appliction', () => {
     // 3. Click the "Delete" button on the booked appointment.
     fireEvent.click(getByAltText(bookedAppt, 'Delete'));
 
-    const seeingDelete = await waitForElement(
+    const deletePrompt = await waitForElement(
       () => getByText(bookedAppt, 'Delete the appointment?'),
-      {
-        container: bookedAppt,
-      }
+      { container: bookedAppt }
     );
-    console.log(prettyDOM(seeingDelete));
-    expect(seeingDelete).toBeInTheDocument();
+
     // 4. Check that the confirmation message is shown.
+    expect(deletePrompt).toBeInTheDocument();
+
     // 5. Click the "Confirm" button on the confirmation.
+    fireEvent.click(getByText(bookedAppt, 'Confirm'));
+
     // 6. Check that the element with the text "Deleting" is displayed.
+    expect(getByText(bookedAppt, 'Deleting')).toBeInTheDocument();
+
     // 7. Wait until the element with the "Add" button is displayed.
+    const emptyView = await waitForElement(
+      () => getByAltText(bookedAppt, 'Add'),
+      { container: bookedAppt }
+    );
+    expect(emptyView).toBeInTheDocument();
+
     // 8. Check that the DayListItem with the text "Monday" also has the text "2 spots remaining".
+    const day = getAllByTestId(container, 'day').find(day =>
+      queryByText(day, 'Monday')
+    );
+    expect(getByText(day, '2 spots remaining')).toBeInTheDocument();
+  });
+
+  it('loads data, edits an interview and keeps the spots remaining for Monday the same', async () => {
+    const newName = 'Test Chicken';
+    const oldName = 'Archie Cohen';
+
+    const { container, debug } = render(<Application />);
+    // 2. find booked appointment
+    await waitForElement(() => getByText(container, oldName));
+    const [bookedAppt] = getAllByTestId(container, 'appointment').filter(appt =>
+      queryByText(appt, oldName)
+    );
+    // 3. click edit
+    fireEvent.click(getByAltText(bookedAppt, 'Edit'));
+    // 4. confirm edit screen is showing
+    const saveButton = getByText(bookedAppt, 'Save');
+    expect(saveButton).toBeInTheDocument();
+    // 5. edit name
+    const inputField = getByTestId(bookedAppt, 'student-name-input');
+
+    fireEvent.change(inputField, { target: { value: newName } });
+    // 6. click save
+    fireEvent.click(saveButton);
+    // confirm saving view is showing
+    expect(getByText(bookedAppt, 'Saving'));
+    // 7. confirm name was edited
+    expect(
+      await waitForElement(() => getByText(bookedAppt, newName))
+    ).toBeInTheDocument();
+    // 8. confirm spots is '1 spot remaining' in the dayListItem
+    const day = getAllByTestId(container, 'day').find(day =>
+      queryByText(day, 'Monday')
+    );
+    expect(getByText(day, '1 spot remaining')).toBeInTheDocument();
   });
 });
