@@ -1,8 +1,6 @@
 import { useReducer, useEffect } from 'react';
 import axios from 'axios';
 
-const MAX_INTERVIEWS_PER_DAY = 5;
-
 const SET_DAY = 'SET_DAY';
 const SET_APPLICATION_DATA = 'SET_APPLICATION_DATA';
 const SET_INTERVIEW = 'SET_INTERVIEW';
@@ -38,7 +36,7 @@ const reducerLookup = {
         spots -= newState.appointments[appointmentId].interview ? 1 : 0;
         return spots;
       },
-      MAX_INTERVIEWS_PER_DAY // TODO; can't use this. must use appointment.length
+      interviewDayData.appointments.length
     );
 
     const days = [...state.days].map(day => {

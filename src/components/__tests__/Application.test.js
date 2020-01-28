@@ -62,7 +62,7 @@ describe('Appliction', () => {
 
     await waitForElement(() => getByText(firstAppointment, 'Lydia Mill-Jones'));
     // debug();
-    // expect(getByText(day, 'no spots remaining')).toBeInTheDocument();
-    console.log(prettyDOM(day));
+    expect(getByText(day, 'no spots remaining')).toBeInTheDocument();
+    // console.log(prettyDOM(day));
   });
 });
