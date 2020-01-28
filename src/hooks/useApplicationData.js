@@ -38,7 +38,7 @@ const reducerLookup = {
         spots -= newState.appointments[appointmentId].interview ? 1 : 0;
         return spots;
       },
-      MAX_INTERVIEWS_PER_DAY
+      MAX_INTERVIEWS_PER_DAY // TODO; can't use this. must use appointment.length
     );
 
     const days = [...state.days].map(day => {

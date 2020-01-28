@@ -3,8 +3,7 @@ import classNames from 'classnames';
 
 import './DayListItem.scss';
 
-
-const formatSpots = (spots) => {
+const formatSpots = spots => {
   let spotsString = spots ? `${spots}` : 'no';
   spotsString += ` spot${spots !== 1 ? 's' : ''} remaining`;
 
@@ -12,14 +11,14 @@ const formatSpots = (spots) => {
 };
 
 /**
- * 
+ *
  * @param {{
  *  name: String,
  *  spots: Number
  *  selected: Boolean
- *  setDay: ()}} props 
+ *  setDay: ()}} props
  */
-const DayListItem = (props) => {
+const DayListItem = props => {
   let dayClass = classNames({
     'day-list__item': true,
     'day-list__item--selected': props.selected,
@@ -27,11 +26,15 @@ const DayListItem = (props) => {
   });
 
   return (
-    <li className={dayClass} onClick={() => props.setDay(props.name)}>
+    <li
+      className={dayClass}
+      onClick={() => props.setDay(props.name)}
+      data-testid="day"
+    >
       <h2 className="text--regular">{props.name}</h2>
       <h3 className="text--light">{formatSpots(props.spots)}</h3>
     </li>
   );
-}
+};
 
 export default DayListItem;
