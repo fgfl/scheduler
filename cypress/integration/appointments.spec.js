@@ -5,7 +5,7 @@ describe('Appointment', () => {
     cy.contains('Monday');
   });
 
-  xit('should book an interview', () => {
+  it('should book an interview', () => {
     const student = 'Lydia Miller-Jones';
     const interviewer = 'Sylvia Palmer';
 
@@ -39,6 +39,18 @@ describe('Appointment', () => {
         cy.contains(/Saving/i).should('not.exist');
         cy.contains(newStudent);
         cy.contains(newInterviewer);
+      });
+  });
+
+  it('should cancel and interview', () => {
+    cy.get('[data-testid=appointment]')
+      .first()
+      .within(() => {
+        cy.get('[alt="Delete"]').click({ force: true });
+        cy.contains(/Confirm/).click();
+        cy.contains(/Deleting/);
+        cy.contains(/Deleting/).should('not.exist');
+        cy.contains(/Archie Cohen/).should('not.exist');
       });
   });
 });
