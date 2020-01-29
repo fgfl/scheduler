@@ -5,7 +5,7 @@ describe('Appointment', () => {
     cy.contains('Monday');
   });
 
-  it('should book an interview', () => {
+  xit('should book an interview', () => {
     const student = 'Lydia Miller-Jones';
     const interviewer = 'Sylvia Palmer';
 
@@ -23,15 +23,22 @@ describe('Appointment', () => {
       });
   });
 
-  xit('test', () => {
-    const student = 'Lydia Miller-Jones';
-    const interviewer = 'Sylvia Palmer';
+  it('should edit an interview', () => {
+    const newInterviewer = 'Tori Malcolm';
+    const newStudent = 'Julia Child';
 
-    const appt = cy
-      .get('[data-testid=appointment]')
+    cy.get('[data-testid=appointment]')
       .first()
-      .next();
-
-    appt.click();
+      .within(() => {
+        cy.get('[alt="Edit"]').click({ force: true });
+        cy.get('[data-testid=student-name-input]')
+          .clear()
+          .type(newStudent);
+        cy.get(`[alt="${newInterviewer}"]`).click();
+        cy.contains(/save/i).click();
+        cy.contains(/Saving/i).should('not.exist');
+        cy.contains(newStudent);
+        cy.contains(newInterviewer);
+      });
   });
 });
