@@ -68,4 +68,8 @@ Both servers run concurrently; requests are proxied from the Webpack development
 
 ![Add interview](https://raw.githubusercontent.com/fgfl/scheduler/master/documents/add/add_interview.gif)
 
-Adding and interview.
+Adding an interview.
+
+![Deleting interview](https://raw.githubusercontent.com/fgfl/scheduler/master/documents/delete/delete_animation.gif)
+
+Deleting an interview.
