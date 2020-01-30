@@ -20,9 +20,8 @@ const useApplication = () => {
   useEffect(() => {
     const webSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
 
-    webSocket.onopen = event => {
-      // console.log('websocket open')
-    };
+    webSocket.onopen = event => {};
+
     webSocket.onmessage = e => {
       dispatchState({ ...JSON.parse(e.data) });
     };

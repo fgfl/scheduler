@@ -1,16 +1,15 @@
-import React from "react";
+import React from 'react';
 
-import "components/Application.scss";
+import 'components/Application.scss';
 
 import DayList from 'components/DayList';
-import Appointment from 'components/Appointment/index'
+import Appointment from 'components/Appointment/index';
 import {
   getAppointmentsForDay,
   getInterviewersForDay,
   getInterview,
-} from "helpers/selectors";
+} from 'helpers/selectors';
 import useApplication from 'hooks/useApplicationData';
-
 
 /**
  * @state {
@@ -41,18 +40,12 @@ import useApplication from 'hooks/useApplicationData';
  * }
  */
 const Application = () => {
-
-  const {
-    state,
-    setDay,
-    bookInterview,
-    cancelInterview,
-  } = useApplication();
+  const { state, setDay, bookInterview, cancelInterview } = useApplication();
 
   const interviewers = getInterviewersForDay(state, state.day);
 
-  const appointmentItems = 
-    getAppointmentsForDay(state, state.day).map((appointment) => {
+  const appointmentItems = getAppointmentsForDay(state, state.day).map(
+    (appointment) => {
       const interview = getInterview(state, appointment.interview);
 
       return (
@@ -66,8 +59,8 @@ const Application = () => {
           cancelInterview={cancelInterview}
         />
       );
-    });
-
+    }
+  );
 
   return (
     <main className="layout">
@@ -81,11 +74,7 @@ const Application = () => {
             />
             <hr className="sidebar__separator sidebar--centered" />
             <nav className="sidebar__menu">
-              <DayList
-                days={state.days}
-                day={state.day}
-                setDay={setDay}
-              />
+              <DayList days={state.days} day={state.day} setDay={setDay} />
             </nav>
             <img
               className="sidebar__lhl sidebar--centered"
@@ -101,6 +90,6 @@ const Application = () => {
       </section>
     </main>
   );
-}
+};
 
 export default Application;

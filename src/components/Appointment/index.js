@@ -40,7 +40,7 @@ const ERROR_DELETE = 'ERROR_DELETE';
  *  cancelInterview: Function
  * }} props
  */
-const Appointment = props => {
+const Appointment = (props) => {
   const {
     id,
     time,
@@ -71,22 +71,22 @@ const Appointment = props => {
     transition(SAVING);
 
     bookInterview(id, interview)
-      .then(res => {
+      .then(() => {
         transition(SHOW);
       })
-      .catch(err => {
+      .catch(() => {
         transition(ERROR_SAVE, true);
       });
   };
 
-  const cancel = id => {
+  const cancel = (id) => {
     transition(DELETING, true);
 
     cancelInterview(id)
-      .then(res => {
+      .then(() => {
         transition(EMPTY);
       })
-      .catch(err => {
+      .catch(() => {
         transition(ERROR_DELETE, true);
       });
   };
@@ -96,11 +96,7 @@ const Appointment = props => {
       <Header time={time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === CREATE && (
-        <Form
-          interviewers={interviewers}
-          onSave={save}
-          onCancel={event => back()}
-        />
+        <Form interviewers={interviewers} onSave={save} onCancel={back} />
       )}
       {mode === EDIT && (
         <Form
@@ -108,23 +104,23 @@ const Appointment = props => {
           interviewer={interview.interviewer.id}
           interviewers={interviewers}
           onSave={save}
-          onCancel={event => back()}
+          onCancel={back}
         />
       )}
       {mode === SHOW && interview && (
         <Show
           student={interview.student}
           interviewer={interview.interviewer}
-          onEdit={event => transition(EDIT)}
-          onDelete={event => transition(CONFIRM)}
+          onEdit={() => transition(EDIT)}
+          onDelete={() => transition(CONFIRM)}
         />
       )}
       {mode === SAVING && <Status message="Saving" />}
       {mode === CONFIRM && (
         <Confirm
           message="Delete the appointment?"
-          onConfirm={event => cancel(id)}
-          onCancel={event => back()}
+          onConfirm={() => cancel(id)}
+          onCancel={back}
         />
       )}
       {mode === DELETING && <Status message="Deleting" />}
