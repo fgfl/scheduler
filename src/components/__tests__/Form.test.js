@@ -50,9 +50,11 @@ describe('Form', () => {
       <Form
         name="Lydia Miller-Jones"
         interviewers={interviewers}
+        interviewer={interviewers[0].id}
         onSave={onSave}
       />
     );
+
     fireEvent.click(queryByText('Save'));
 
     // 3. validation is shown
@@ -62,22 +64,29 @@ describe('Form', () => {
     expect(onSave).toHaveBeenCalledTimes(1);
 
     // 5. onSave is called with the correct arguments
-    expect(onSave).toHaveBeenCalledWith('Lydia Miller-Jones', null);
+    expect(onSave).toHaveBeenCalledWith(
+      'Lydia Miller-Jones',
+      interviewers[0].id
+    );
   });
 
   it('submits the name entered by the user', () => {
     const onSave = jest.fn();
-    const { getByText, getByPlaceholderText } = render(
+    const { getByText, getByAltText, getByPlaceholderText } = render(
       <Form interviewers={interviewers} onSave={onSave} />
     );
 
     const input = getByPlaceholderText(/Enter Student Name/i);
 
     fireEvent.change(input, { target: { value: 'Lydia Miller-Jones' } });
+    fireEvent.click(getByAltText(interviewers[0].name));
     fireEvent.click(getByText('Save'));
 
     expect(onSave).toHaveBeenCalledTimes(1);
-    expect(onSave).toHaveBeenCalledWith('Lydia Miller-Jones', null);
+    expect(onSave).toHaveBeenCalledWith(
+      'Lydia Miller-Jones',
+      interviewers[0].id
+    );
   });
 
   it('can successfully save after trying to submit an empty student name', () => {
