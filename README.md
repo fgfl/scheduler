@@ -63,3 +63,9 @@ Both servers run concurrently; requests are proxied from the Webpack development
 - react: 16.9.0 and above
 - react-dom: 16.9.0 and above
 - react-scripts: 3.0.0
+
+# Images
+
+![Add interview](https://raw.githubusercontent.com/fgfl/scheduler/master/documents/add/add_interview.gif)
+
+Adding and interview.
