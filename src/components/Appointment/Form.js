@@ -33,6 +33,10 @@ const Form = props => {
       setError('Student name cannot be blank');
       return;
     }
+    if (!interviewer) {
+      setError('Interviewer is not selected');
+      return;
+    }
 
     props.onSave(name, interviewer);
   };
@@ -63,7 +67,6 @@ const Form = props => {
           <Button danger onClick={event => cancel(props.onCancel)}>
             Cancel
           </Button>
-          {/* <Button confirm onClick={event => validate(event)}> */}
           <Button confirm onClick={validate}>
             Save
           </Button>
