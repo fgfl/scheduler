@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import './DayListItem.scss';
 
-const formatSpots = spots => {
+const formatSpots = (spots) => {
   let spotsString = spots ? `${spots}` : 'no';
   spotsString += ` spot${spots !== 1 ? 's' : ''} remaining`;
 
@@ -18,8 +18,8 @@ const formatSpots = spots => {
  *  selected: Boolean
  *  setDay: ()}} props
  */
-const DayListItem = props => {
-  let dayClass = classNames({
+const DayListItem = (props) => {
+  const dayClass = classNames({
     'day-list__item': true,
     'day-list__item--selected': props.selected,
     'day-list__item--full': props.spots === 0,

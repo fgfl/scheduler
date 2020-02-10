@@ -20,9 +20,9 @@ const useApplication = () => {
   useEffect(() => {
     const webSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
 
-    webSocket.onopen = event => {};
+    webSocket.onopen = (event) => {};
 
-    webSocket.onmessage = e => {
+    webSocket.onmessage = (e) => {
       dispatchState({ ...JSON.parse(e.data) });
     };
 
@@ -45,7 +45,7 @@ const useApplication = () => {
           },
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.error('Failed to GET request.', err.message);
       });
 
@@ -58,7 +58,7 @@ const useApplication = () => {
    *
    * @param {'selected day'} day
    */
-  const setDay = day => dispatchState({ type: SET_DAY, value: day });
+  const setDay = (day) => dispatchState({ type: SET_DAY, value: day });
 
   /**
    *
@@ -70,7 +70,7 @@ const useApplication = () => {
       .put(`/api/appointments/${id}`, {
         interview: interview,
       })
-      .then(res => {
+      .then((res) => {
         dispatchState({
           type: SET_INTERVIEW,
           id,
@@ -84,8 +84,8 @@ const useApplication = () => {
    *
    * @param {Number} id - appointment id
    */
-  const cancelInterview = id => {
-    return axios.delete(`/api/appointments/${id}`).then(res => {
+  const cancelInterview = (id) => {
+    return axios.delete(`/api/appointments/${id}`).then((res) => {
       dispatchState({
         type: SET_INTERVIEW,
         id,
