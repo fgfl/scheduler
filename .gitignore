@@ -25,3 +25,6 @@ yarn-debug.log*
 yarn-error.log*
 
 requirement_checklist.md
+
+*rsa
+*rsa.pub
