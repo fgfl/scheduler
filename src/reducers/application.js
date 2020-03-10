@@ -3,7 +3,7 @@ const SET_APPLICATION_DATA = 'SET_APPLICATION_DATA';
 const SET_INTERVIEW = 'SET_INTERVIEW';
 
 const reducerLookup = {
-  // [SET_DAY]: (state, action) => ({ ...state, day: action.value }),
+  [SET_DAY]: (state, action) => ({ ...state, day: action.value }),
   [SET_APPLICATION_DATA]: (state, action) => ({ ...state, ...action.value }),
   [SET_INTERVIEW]: (state, action) => {
     const appointment = {
