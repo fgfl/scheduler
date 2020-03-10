@@ -3,7 +3,7 @@ const SET_APPLICATION_DATA = 'SET_APPLICATION_DATA';
 const SET_INTERVIEW = 'SET_INTERVIEW';
 
 const reducerLookup = {
-  [SET_DAY]: (state, action) => ({ ...state, day: action.value }),
+  // [SET_DAY]: (state, action) => ({ ...state, day: action.value }),
   [SET_APPLICATION_DATA]: (state, action) => ({ ...state, ...action.value }),
   [SET_INTERVIEW]: (state, action) => {
     const appointment = {
@@ -17,7 +17,7 @@ const reducerLookup = {
 
     const newState = { ...state, appointments };
 
-    const [interviewDayData] = [...newState.days].filter(day =>
+    const [interviewDayData] = [...newState.days].filter((day) =>
       day.appointments.includes(action.id)
     );
 
@@ -29,7 +29,7 @@ const reducerLookup = {
       interviewDayData.appointments.length
     );
 
-    const days = [...state.days].map(day => {
+    const days = [...state.days].map((day) => {
       if (interviewDayData.id === day.id) {
         return { ...interviewDayData, spots: newSpots };
       } else {
@@ -39,7 +39,7 @@ const reducerLookup = {
 
     return { ...newState, days };
   },
-  default: action => {
+  default: (action) => {
     throw new Error(
       `Tried to reduce with unsupported action type: ${action.type}`
     );
