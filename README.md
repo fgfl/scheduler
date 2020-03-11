@@ -2,6 +2,10 @@
 
 This single page application lets users schedule, edit, or delete interviews. The application makes requests to a server to store the interviews. It supports multiple concurrent users through the use of web sockets.
 
+## Hosted Example
+
+You can run this app on the following netlify link: https://react-interview-scheduler.netlify.com/
+
 ## Setup
 
 Install dependencies with `npm install`.
